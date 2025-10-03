@@ -1,5 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
+import Lottie from 'lottie-react';
 import { Send, Image as ImageIcon, Sparkles, Bot, User, Loader2 } from 'lucide-react';
+import thinkingAnimation from './animations/thinking.json';
+import welcomeAnimation from './animations/welcome.json';
 import axios from 'axios';
 
 function App() {
@@ -92,16 +95,16 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col p-4 md:p-8">
+    <div className="min-h-screen flex flex-col p-2 sm:p-4 md:p-6">
       {/* Header */}
-      <header className="glass-effect rounded-3xl p-6 mb-6 animate-fade-in">
+      <header className="glass-effect rounded-3xl p-4 sm:p-6 mb-4 sm:mb-6 animate-fade-in">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="bg-gradient-to-br from-primary-500 to-secondary-500 p-3 rounded-2xl shadow-lg animate-pulse-slow">
               <Sparkles className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
                 AI Chatbot
               </h1>
               <p className="text-sm text-slate-600">Text & Image Generation</p>
@@ -137,13 +140,13 @@ function App() {
       </header>
 
       {/* Chat Area */}
-      <main className="flex-1 glass-effect rounded-3xl p-6 mb-6 overflow-hidden flex flex-col">
+      <main className="flex-1 glass-effect rounded-3xl p-4 sm:p-6 mb-4 sm:mb-6 overflow-hidden flex flex-col">
         <div className="flex-1 overflow-y-auto space-y-4 mb-4">
           {messages.length === 0 ? (
             <div className="h-full flex items-center justify-center">
               <div className="text-center space-y-4">
-                <div className="bg-gradient-to-br from-primary-100 to-secondary-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto">
-                  <Sparkles className="w-10 h-10 text-primary-600" />
+                <div className="w-24 h-24 mx-auto">
+                  <Lottie animationData={welcomeAnimation} loop={true} />
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold text-slate-700 mb-2">
@@ -213,15 +216,13 @@ function App() {
                 <Bot className="w-5 h-5 text-white" />
               </div>
               <div className="message-bubble bg-white shadow-md">
-                <div className="flex items-center gap-2">
-                  <span className="text-slate-600">
-                    {mode === 'text' ? 'Thinking' : 'Generating image'}
-                  </span>
-                  <div className="flex gap-1 items-center">
-                    <span className="w-1.5 h-1.5 bg-primary-600 rounded-full animate-typing" style={{ animationDelay: '0.1s' }}></span>
-                    <span className="w-1.5 h-1.5 bg-primary-600 rounded-full animate-typing" style={{ animationDelay: '0.2s' }}></span>
-                    <span className="w-1.5 h-1.5 bg-primary-600 rounded-full animate-typing" style={{ animationDelay: '0.3s' }}></span>
+                <div className="flex items-center gap-1">
+                  <div className="w-10 h-10">
+                    <Lottie animationData={thinkingAnimation} loop={true} />
                   </div>
+                  <span className="text-slate-600 text-sm">
+                    {mode === 'text' ? 'AI is thinking...' : 'Generating image...'}
+                  </span>
                 </div>
               </div>
             </div>
@@ -243,7 +244,7 @@ function App() {
                   ? 'Type your message...'
                   : 'Describe the image you want to generate...'
               }
-              className="w-full px-4 py-3 rounded-2xl resize-none focus:outline-none bg-transparent"
+              className="w-full px-4 py-3 rounded-2xl resize-none focus:outline-none bg-transparent responsive-placeholder"
               rows="1"
               style={{
                 minHeight: '52px',

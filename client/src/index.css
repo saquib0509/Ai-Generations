@@ -51,6 +51,16 @@
   .smooth-transition {
     @apply transition-all duration-300 ease-in-out;
   }
+
+  .responsive-placeholder::placeholder {
+    @apply text-base;
+  }
+
+  @media (max-width: 640px) {
+    .responsive-placeholder::placeholder {
+      @apply text-sm;
+    }
+  }
 }
 
 /* Custom scrollbar */
